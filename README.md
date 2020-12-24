@@ -1,4 +1,5 @@
-# Relatime
+# Relatime [![Build Status](https://travis-ci.com/joseluisq/relatime.svg?token=qB1iXZPP7iKjyeqfe4pA&branch=master)](https://travis-ci.com/joseluisq/relatime) [![npm](https://img.shields.io/npm/v/relatime.svg)](https://www.npmjs.com/package/relatime) [![npm](https://img.shields.io/npm/dt/relatime.svg)](https://www.npmjs.com/package/relatime) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 
 > Make date times in humans readable format.
 
