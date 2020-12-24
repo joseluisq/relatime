@@ -1,0 +1,56 @@
+{
+    "name": "relatime",
+    "version": "1.0.0",
+    "description": "Make date times in humans readable format.",
+    "author": {
+        "name": "Jose Quintana",
+        "url": "http://git.io/joseluisq"
+    },
+    "license": "MIT",
+    "repository": "joseluisq/relatime",
+    "keywords": [
+        "time",
+        "human",
+        "humanize",
+        "relative",
+        "readable"
+    ],
+    "main": "index.js",
+    "typings": "index.d.ts",
+    "files": [
+        "index.js",
+        "index.d.ts",
+        "/*.min.js",
+        "README.md",
+        "LICENSE.md"
+    ],
+    "scripts": {
+        "version": "npm run build",
+        "start": "env NODE_ENV=development ts-node example/index.ts",
+        "lint": "tslint --format stylish --project tsconfig.json",
+        "build": "npm run test && npm run clean && npm run compile",
+        "compile": "npm run compile:browser && npm run compile:cjs",
+        "compile:cjs": "tsc --module commonjs --target es2015",
+        "compile:browser": "rollup -c",
+        "watch": "tsc --watch",
+        "clean": "rm -rf dist",
+        "test": "yarn lint && ts-node tests/testing.spec.ts",
+        "preversion": "yarn build"
+    },
+    "peerDependencies": {
+        "tslint": ">=5.0.0",
+        "typescript": ">=2.9.0"
+    },
+    "devDependencies": {
+        "@types/node": "^14.14.16",
+        "briefest": "^0.0.1-beta.1",
+        "git-testing-hook": "0.3.0",
+        "rollup": "0.68.2",
+        "rollup-plugin-terser": "5.1.1",
+        "rollup-plugin-typescript2": "0.21.2",
+        "ts-node": "^9.1.1",
+        "tslint": "^6.1.3",
+        "tslint-config-standard-plus": "^2.3.0",
+        "typescript": "^4.1.3"
+    }
+}
