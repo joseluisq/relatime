@@ -80,7 +80,7 @@ export function RelativeTime () {
     }
 
     /** It returns the relative time object with their numeric values. */
-    function relativize (datetime: number | string | Date): RelativeTime {
+    function relativize (datetime: number | string | Date, short = false): RelativeTime {
         const date = new Date(datetime)
         const then = date.getTime()
 
@@ -101,14 +101,20 @@ export function RelativeTime () {
         const year = month * 12
         let ms = Math.abs(then - now)
 
-        const years = parseInt((ms / year).toString(), 10)
-        ms -= years * year
+        let years = 0
+        let months = 0
+        let weeks = 0
 
-        const months = parseInt((ms / month).toString(), 10)
-        ms -= months * month
+        if (!short) {
+            years = parseInt((ms / year).toString(), 10)
+            ms -= years * year
 
-        const weeks = parseInt((ms / week).toString(), 10)
-        ms -= weeks * week
+            months = parseInt((ms / month).toString(), 10)
+            ms -= months * month
+
+            weeks = parseInt((ms / week).toString(), 10)
+            ms -= weeks * week
+        }
 
         const days = parseInt((ms / day).toString(), 10)
         ms -= days * day
@@ -126,8 +132,8 @@ export function RelativeTime () {
     }
 
     /** It returns the relative time in human readable format. E.g. 2 days ago, yesterday, 3 months from now */
-    function humanize (datetime: number | string | Date) {
-        const v = relativize(datetime)
+    function humanize (datetime: number | string | Date, short = false) {
+        const v = relativize(datetime, short)
 
         const opts: Required<RelativeTimeSuffixes> = [ SUFFIXES, suffixes || {} ].reduce((a, b) => {
             Object.keys(b).forEach((k) => (a[k] = b[k]))
@@ -135,18 +141,38 @@ export function RelativeTime () {
         }, {}) as Required<RelativeTimeSuffixes>
 
         const s2 = v.isPast ? opts.past : opts.future
-        if (v.years) return format(v.years, opts.year, opts.years, s2)
-        if (v.months) return format(v.months, opts.month, opts.months, s2)
-        if (v.weeks) return format(v.weeks, opts.week, opts.weeks, s2)
+
+        if (!short) {
+            if (v.years) return format(v.years, opts.year, opts.years, s2)
+            if (v.months) return format(v.months, opts.month, opts.months, s2)
+            if (v.weeks) return format(v.weeks, opts.week, opts.weeks, s2)
+        }
+
         if (v.days) {
+            if (short) {
+                return v.days + "d"
+            }
             if (v.days === 1) {
                 return opts.yesterday
             }
             return format(v.days, opts.day, opts.days, s2)
         }
-        if (v.hours) return format(v.hours, opts.hour, opts.hours, s2)
-        if (v.minutes) return format(v.minutes, opts.minute, opts.minutes, s2)
+        if (v.hours) {
+            if (short) {
+                return v.hours + "h"
+            }
+            return format(v.hours, opts.hour, opts.hours, s2)
+        }
+        if (v.minutes) {
+            if (short) {
+                return v.minutes + "min"
+            }
+            return format(v.minutes, opts.minute, opts.minutes, s2)
+        }
         // seconds by default
+        if (short) {
+            return v.seconds + "s"
+        }
         return format(v.seconds, opts.second, opts.seconds, s2)
     }
 

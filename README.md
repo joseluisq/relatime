@@ -98,6 +98,32 @@ console.log(h.humanize("2022-07-31T23:57:10Z"))
 // 1 año desde ahora
 ```
 
+#### Using short suffixes
+
+```ts
+import { RelativeTime } from "relatime"
+
+const h = RelativeTime()
+
+// Or just skip this to use system date time
+h.setCurrentDate(new Date("2020-12-24T22:14:00.431Z"))
+
+console.log(h.humanize("2020-12-24T01:28:37Z", true))
+// 20h
+console.log(h.humanize("2020-12-24T00:00:37Z", true))
+// 22h
+console.log(h.humanize("2020-12-23T21:58:37Z", true))
+// 1d
+console.log(h.humanize("2020-12-20T19:26:10Z", true))
+// 4d
+console.log(h.humanize("2021-01-10T23:57:10Z", true))
+// 17d
+console.log(h.humanize("2020-02-03T23:57:10Z", true))
+// 324d
+console.log(h.humanize("2022-07-31T23:57:10Z", true))
+// 584d
+```
+
 #### Returning relative time values
 
 ```ts
