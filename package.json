@@ -37,10 +37,6 @@
         "test": "yarn lint && ts-node tests/testing.spec.ts",
         "preversion": "yarn build"
     },
-    "peerDependencies": {
-        "tslint": ">=5.0.0",
-        "typescript": ">=2.9.0"
-    },
     "devDependencies": {
         "@types/node": "^14.14.16",
         "briefest": "^0.0.1-beta.1",
