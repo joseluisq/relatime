@@ -1,6 +1,6 @@
 {
     "name": "relatime",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Make date times in human readable format.",
     "author": {
         "name": "Jose Quintana",
